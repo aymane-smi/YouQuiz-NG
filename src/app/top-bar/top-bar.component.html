@@ -1,0 +1,20 @@
+<div class=" px-4 h-[100px] w-screen border border-gray-300 fixed top-0 bg-white shadow-sm flex justify-between items-center">
+  <span class="logo text-[25px] text-[#45178E]">YouQuiz</span>
+  <a class="rounded-md font-bold create-btn p-4 relative" (click)="toggle()">
+    Create
+    <div *ngIf="menuToggle" class="absolute bg-white top-[80px] right-[0px] rounded-md shadow-lg p-7 text-justify flex flex-col gap-3 create-menu">
+      <a class="flex justify-center items-center gap-10 text-black text-ellipsis">
+        <fa-icon [icon]="faUp" size='2x' class="bg-gray-300 rounded-md p-4 text-[#45178E]"></fa-icon>
+        <span class="w-[150px] text-left">Add Level</span>
+      </a>
+      <a class="flex justify-between gap-10 items-center text-black text-ellipsis">
+        <fa-icon [icon]="faFolder" size='2x' class="bg-gray-300 rounded-md p-4 text-white"></fa-icon>
+        <span class="w-[150px] inline-block text-left">Add Subject</span>
+      </a>
+      <a class="flex justify-between gap-10 items-center text-black text-ellipsis">
+        <fa-icon [icon]="faQuestion" size='2x' class="bg-gray-300 rounded-md p-4 text-[#63A8A8]"></fa-icon>
+        <span class="w-[150px] text-left">Add Question</span>
+      </a>
+    </div>
+  </a>
+</div>

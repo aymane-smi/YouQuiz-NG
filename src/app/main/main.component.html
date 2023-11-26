@@ -1,0 +1,42 @@
+<main class="pl-[100px] pt-[100px] w-screen h-screen overflow-scroll font-Montserrat">
+  <div class="w-full p-4 flex justify-center items-start gap-2">
+    <!-- left -->
+    <div class="flex flex-col justify-center items-center basis-1/4 rounded-md shadow-md p-3">
+      <div class="w-full float-right flex flex-col gap-3">
+        <div class="p-3 rounded-md bg-gray-200 w-1/2">
+          <p class="font-semibold text-sm">List of Levels <fa-icon [icon]="faExclamation" size='lg' class="ml-3"/></p>
+        </div>
+        <div class="bg-gray-200 rounded-md flex flex-col gap-3 p-3 h-max-[300px] overflow-y-scroll">
+          <div class="bg-white rounded-sm border border-gray-100 shadow-md p-2 flex items-center justify-between">
+            <div class="flex items-center justify-start gap-3">
+              <img [src]="logoSvg" class="w-[30px] h-[30px]"/>
+              <p>level name</p>
+            </div>
+            <fa-icon [icon]="faGear_" class="p-2 bg-gray-200 rounded-md"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- center -->
+    <div class="flex flex-col justify-center items-center basis-1/2 rounded-md shadow-md bg-transparent">
+      <div class="w-full bg-black h-[100px] text-white px-[30px] py-[80px] flex justify-between items-center">
+        <div class="flex flex-col gap-3">
+          <p class="font-semibold text-[20px]">make new Quiz for your Student</p>
+          <p class="font-light text-[15px]">have the best experience while creating your quizzes for your students with <b>YouQuiz</b>. create, play and learn at once.</p>
+        </div>
+        <img [src]="bannerImg" class="w-[100px] h-[100px]"/>
+      </div>
+      <div class="bg-white rounded-md w-full h-fit py-3">
+        <p class="font-semibold border-b-2 border-blue-600 p-4 ml-6 pb-2 w-fit mb-1">Quiz</p>
+        <div class="w-full border-t-2 border-gray-200 h-[200px] p-6">
+          <div class="border border-dashed rounded-sm flex justify-center items-center flex-col p-10 bg-gray-50">
+            <p class="text-center text-[15px] text-gray-500">Welcome to Courses! When a course is created, you can create a course session, to assign it to learners and start the course!</p>
+            <a class="rounded-md font-bold create-btn p-2 text-white text-[12px] mt-3">Create Quiz</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- right -->
+    <div class="flex flex-col justify-center items-center basis-1/4 rounded-md shadow-md">z</div>
+  </div>
+</main>

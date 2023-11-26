@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MainModule } from './main/main.module';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserModule,
     AppRoutingModule,
     TopBarComponent,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MainModule
   ],
   providers: [],
   bootstrap: [AppComponent]

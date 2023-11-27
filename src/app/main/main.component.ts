@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { faCircleExclamation, faGear } from '@fortawesome/free-solid-svg-icons';
+import { MainService } from './main.service';
+import { Level } from 'src/interfaces/Level';
 
 @Component({
   selector: 'app-main',
@@ -7,8 +9,22 @@ import { faCircleExclamation, faGear } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent {
+
+  constructor(private mainService: MainService){}
   faExclamation = faCircleExclamation;
   faGear_ = faGear;
   logoSvg = "https://assets-cdn.kahoot.it/builder/v2/assets/icn-live-game-00869c8b.svg";
   bannerImg = "https://kahoot.com/files/2019/02/KahootPlusPro_MobileChallenges.png";
+  levels: Level[] = [];
+
+  ngOnInit(): void{
+    this.getLevels();
+  }
+
+  getLevels(): void{
+    this.mainService.getLevels().subscribe(levels => this.levels = levels.levels);
+    console.log(this.levels);
+
+  }
+
 }

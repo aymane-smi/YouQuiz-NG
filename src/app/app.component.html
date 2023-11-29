@@ -1,3 +1,9 @@
-<app-top-bar/>
-<app-main />
-<app-side-bar/>
+<ng-container *ngIf="title; else withTitle">
+  <router-outlet></router-outlet>
+</ng-container>
+
+<ng-template #withTitle>
+  <app-top-bar></app-top-bar>
+  <router-outlet></router-outlet>
+  <app-side-bar></app-side-bar>
+</ng-template>

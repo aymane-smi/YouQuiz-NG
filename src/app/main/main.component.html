@@ -7,8 +7,8 @@
           <p class="font-semibold text-sm">List of Levels <fa-icon [icon]="faExclamation" size='lg' class="ml-3"/></p>
         </div>
         <div class="bg-gray-200 rounded-md flex flex-col gap-3 p-3 h-max-[300px] overflow-y-scroll">
-          <div class="bg-white rounded-sm border border-gray-100 shadow-md p-2 flex items-center justify-between">
-            <div *ngFor="let level of levels" class="flex items-center justify-start gap-3">
+          <div *ngFor="let level of levels" class="bg-white rounded-sm border border-gray-100 shadow-md p-2 flex items-center justify-between">
+            <div class="flex items-center justify-start gap-3">
               <img [src]="logoSvg" class="w-[30px] h-[30px]"/>
               <p>{{level.description}}</p>
             </div>
@@ -41,10 +41,10 @@
       <div class=" shadow-md w-full rounded-md">
         <p class="font-semibold border-b-2 border-blue-600 p-4 ml-6 pb-2 w-fit mb-1">Subjects</p>
         <div class="w-full border-t-2 border-gray-200 h-[200px] p-6">
-          <div class="bg-white rounded-sm border border-gray-100 shadow-md p-2 flex items-center justify-between">
+          <div *ngFor="let subject of subjects" class="bg-white rounded-sm border border-gray-100 shadow-md p-2 flex items-center justify-between">
             <div class="flex items-center justify-start gap-3">
               <img src="https://source.boringavatars.com/" class="w-[30px] h-[30px]"/>
-              <p>subject</p>
+              <p>{{subject.title}}</p>
             </div>
             <fa-icon [icon]="faGear_" class="p-2 bg-gray-200 rounded-md"/>
           </div>

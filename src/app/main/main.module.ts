@@ -4,6 +4,8 @@ import { MainComponent } from './main.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -14,6 +16,8 @@ import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogContent, MatDialogTitle } from '@a
     CommonModule,
     FontAwesomeModule,
     MatButtonModule,
+    MatMenuModule,
+    MatSnackBarModule
   ],
   exports:[
     MainComponent

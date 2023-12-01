@@ -30,4 +30,12 @@ export class MainService {
     );
   }
 
+  deleteLevel(id: number): void{
+    this.http.delete(`${this.url}/level/${id}`).subscribe();
+  }
+
+  deleteSubject(id: number): void{
+    this.http.delete(`${this.url}/subject/${id}`).subscribe();
+  }
+
 }

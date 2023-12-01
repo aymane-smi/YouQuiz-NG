@@ -1,6 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from'@angular/router';
 import { filter } from 'rxjs';
+import { Level } from 'src/interfaces/Level';
+import { AppService } from 'src/services/app-service.service';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +11,19 @@ import { filter } from 'rxjs';
 })
 export class AppComponent implements OnInit{
   title:boolean = false;
-  constructor(private router:Router, private route: ActivatedRoute){}
+  //level:Level | null = null;
+  constructor(private router:Router,
+    private route: ActivatedRoute,
+    private appService: AppService){
+      // this.appService.level$.subscribe(level_ => {
+      //   this.level = level_;
+      // })
+    }
   ngOnInit(): void {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       this.title = this.getPageTitle() === "Not Found";
-      console.log(this.title);
     });
   }
 

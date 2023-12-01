@@ -3,7 +3,6 @@ import {  FormControl, FormGroup } from '@angular/forms';
 import { LevelService } from 'src/services/level.service';
 import {Level} from '../../../interfaces/Level';
 import { LevelStateService } from 'src/services/level-state-service.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dialog',
@@ -11,15 +10,18 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent {
-  constructor(private levelService: LevelService, private levelState: LevelStateService, private toastr:ToastrService){}
+  constructor(private levelService: LevelService,
+    private levelState: LevelStateService,){}
   form = new FormGroup({
     description : new FormControl<string>(''),
     maxScore: new FormControl<number>(0),
     minScore: new FormControl<number>(0),
   });
   onSubmit(): void{
-    this.levelService.addLevel(<Level>this.form.getRawValue()).subscribe();
-    this.levelState.getState().close();
-    this.toastr.success('message', 'level created with success!');
+    this.levelService.addLevel(<Level>this.form.getRawValue()).subscribe(level => {
+      this.levelState.getState().close({
+        data: level.level
+      });
+    });
   }
 }

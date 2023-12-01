@@ -1,0 +1,13 @@
+<form class="flex flex-col h-fit justify-center items-center gap-5" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <h2 class="font-Montserrat font-bold text-[30px] w-[200px] inline-block mt-5">Add Subject</h2>
+      <mat-form-field class="w-full">
+        <mat-label>title</mat-label>
+        <input matInput placeholder="title" formControlName="title">
+      </mat-form-field>
+      <mat-dialog-actions align="center">
+        <button mat-dialog-close class="bg-[#ce8c12] rounded-md text-white font-bold p-2">Close</button>
+        <button class="bg-[#1267CE] rounded-md text-white font-bold p-2 ml-3">Update</button>
+      </mat-dialog-actions>
+    </mat-dialog-content>
+  </form>

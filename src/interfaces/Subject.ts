@@ -3,5 +3,6 @@ export interface Subject{
   title: string,
   parent_id?: number
   childs?: Subject[],
-  parent?: Subject
+  parent?: Subject,
+  subject?: Subject
 }

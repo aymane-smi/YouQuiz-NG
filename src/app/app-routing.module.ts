@@ -7,6 +7,7 @@ const routes: Routes = [
   {path: "trainer", component: MainComponent, data: {title: "Dashboard"}, pathMatch: "full"},
   {path: "", redirectTo: "/trainer", pathMatch: "full"},
   {path: "**", component: NotFoundComponent, data: {title: "Not Found"}}
+
 ];
 
 @NgModule({

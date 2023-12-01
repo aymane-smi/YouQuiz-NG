@@ -12,7 +12,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-import { ToastrModule } from 'ngx-toastr';
+import { StoreModule } from '@ngrx/store';
+import { levelReducer } from 'src/ngrx/reducers/level.reducer';
 
 @NgModule({
   declarations: [
@@ -26,11 +27,10 @@ import { ToastrModule } from 'ngx-toastr';
     TopBarComponent,
     FontAwesomeModule,
     HttpClientModule,
-    AppRoutingModule,
     MainModule,
     BrowserAnimationsModule,
     MaterialModule,
-    ToastrModule.forRoot()
+    StoreModule.forRoot({level: levelReducer}, {})
   ],
   providers: [{provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}],
   bootstrap: [AppComponent]

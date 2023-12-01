@@ -4,8 +4,11 @@ import { faCircleArrowUp, faFolderTree, faFileCircleQuestion } from '@fortawesom
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
-import { DialogComponent } from '../material/dialog/dialog.component';
+import { DialogComponent } from '../material/level-create-dialog/dialog.component';
+import { DialogComponent as  subjectDialog} from '../material/subject-create-dialog/subject-dialog.component';
 import { LevelStateService } from 'src/services/level-state-service.service';
+import { AppService } from 'src/services/app-service.service';
+import { SubjectStateService } from 'src/services/subject-state-service.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -20,7 +23,10 @@ export class TopBarComponent {
   faQuestion = faFileCircleQuestion;
   menuToggle: Boolean = false;
 
-  constructor(public dialog: MatDialog, private levelState: LevelStateService){}
+  constructor(public dialog: MatDialog,
+    private levelState: LevelStateService,
+    private subjectState: SubjectStateService,
+    private appService: AppService){}
   toggle(): void{
     this.menuToggle = !this.menuToggle;
   }
@@ -28,5 +34,12 @@ export class TopBarComponent {
   openDialog() {
     let dialogRef = this.dialog.open(DialogComponent, {enterAnimationDuration: '400ms', exitAnimationDuration: '400ms', autoFocus: false	});
     this.levelState.setState(dialogRef);
+    dialogRef.afterClosed().subscribe(data => this.appService.level(data.data));
+  }
+
+  openDialogSubject(){
+    let dialogRef = this.dialog.open(subjectDialog, {enterAnimationDuration: '400ms', exitAnimationDuration: '400ms', autoFocus: false	});
+    this.subjectState.setState(dialogRef);
+    dialogRef.afterClosed().subscribe(data => this.appService.subject("create", data.data));
   }
 }

@@ -44,6 +44,9 @@ export class QuizDialogComponent {
   onSubmit(): void{
     this.quizService.createQuizzes(<Quiz>this.form.getRawValue()).subscribe(quiz => {
       this.quiz$.subscribe(state => {
+        // console.log("subscribe to quiz state");
+        // console.table(state);
+        //unsubscribe to fix the bug
         state.dialogRef.close();
       }).unsubscribe();
       this.store.dispatch(createQuiz({quiz}));

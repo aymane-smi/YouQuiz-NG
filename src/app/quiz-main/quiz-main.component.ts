@@ -19,14 +19,17 @@ export class QuizMainComponent {
   constructor(private quizService: QuizMainService, private store: Store<{quiz: stateInterface}>){
     this.quiz$ = this.store.select('quiz');
     this.quiz$.subscribe((quiz)=>{
-      const randomHex = `#${[...Array(6)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')}`;
-      let costumeQuiz:any = {...quiz.quiz, color: randomHex};
-      this.quizzes.push(costumeQuiz);
+      if(quiz.quiz != null){
+        const randomHex = `#${[...Array(6)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+        let costumeQuiz:any = {...quiz.quiz, color: randomHex};
+        this.quizzes.push(costumeQuiz);
+      }
     });
   }
 
   ngOnInit(){
     this.quizService.getQuizzes().subscribe(quizzes => {
+      console.log("quizzes length:"+quizzes.length);
       for(let quiz of quizzes){
         const randomHex = `#${[...Array(6)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')}`;
         this.quizzes.push(<CostumeQuiz>{...quiz, color: randomHex})

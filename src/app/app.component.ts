@@ -11,6 +11,7 @@ import { AppService } from 'src/services/app-service.service';
 })
 export class AppComponent implements OnInit{
   title:boolean = false;
+  sideBarToggle: boolean = true;
   //level:Level | null = null;
   constructor(private router:Router,
     private route: ActivatedRoute,
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit{
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       this.title = this.getPageTitle() === "Not Found";
+      this.sideBarToggle = !(this.getPageTitle() === "Create Quiz");
     });
   }
 

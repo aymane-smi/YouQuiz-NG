@@ -10,6 +10,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatRadioModule } from '@angular/material/radio';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SubjectDialogUpdateComponent } from './subject-update-dialog/subject-dialog-update.component';
+import { QuizDialogComponent } from './quiz-create-dialog/dialog.component';
 
 
 
@@ -17,7 +18,8 @@ import { SubjectDialogUpdateComponent } from './subject-update-dialog/subject-di
   declarations: [
     DialogComponent,
     SubjectDialog,
-    SubjectDialogUpdateComponent
+    SubjectDialogUpdateComponent,
+    QuizDialogComponent
   ],
   imports: [
     CommonModule,

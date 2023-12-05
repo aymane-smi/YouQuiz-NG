@@ -5,5 +5,7 @@
 <ng-template #withTitle>
   <app-top-bar></app-top-bar>
   <router-outlet></router-outlet>
-  <app-side-bar></app-side-bar>
+  <ng-container *ngIf="sideBarToggle">
+    <app-side-bar></app-side-bar>
+  </ng-container>
 </ng-template>

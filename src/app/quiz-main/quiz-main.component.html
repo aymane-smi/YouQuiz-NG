@@ -1,0 +1,24 @@
+<div class="pl-[100px] pt-[100px] font-Montserrat">
+  <!-- quizzes container -->
+  <div class="p-5">
+    <div routerLinkActive="router-link-active" *ngIf="quizzes.length != 0; else show" class="flex flex-col gap-3">
+      <a routerLink="/quiz/{{quiz.id}}" *ngFor="let quiz of quizzes" class="h-[120px] w-full rounded-md border-2 border-gray-200 shadow-md overflow-hidden flex gap-5">
+        <div class="h-full w-[200px]" [ngStyle]="{'background-color': quiz.color}"></div>
+        <div class="p-4">
+          <p class="font-extrabold">Consectetur pariatur ut amet non</p>
+          <p *ngIf="quiz.remark != '' " class="font-semibold">{{quiz.remark}}</p>
+          <mat-chip-listbox>
+            <mat-chip-option color="primary">id:{{quiz.id}}</mat-chip-option>
+            <mat-chip-option color="accent">score:{{quiz.score}}</mat-chip-option>
+            <mat-chip-option color="warn" selected="quiz.showAnswers" disabled>show Answers</mat-chip-option>
+            <mat-chip-option color="warn" selected="quiz.showFinalResults" disabled>show Final Results</mat-chip-option>
+            <mat-chip-option color="accent">chance Number:{{quiz.chanceNbr}}</mat-chip-option>
+          </mat-chip-listbox>
+        </div>
+      </a>
+    </div>
+    <ng-template  #show >
+      <p class="w-full text-center font font-medium text-[25px]">No Quiz is available yet!</p>
+    </ng-template>
+  </div>
+</div>

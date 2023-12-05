@@ -1,0 +1,52 @@
+<form class="flex flex-col h-fit justify-center items-center gap-5" [formGroup]="form" (ngSubmit)="onSubmit()">
+<mat-dialog-content>
+  <h2 class="font-Montserrat font-bold text-[30px] w-full text-center inline-block mt-5 p-4">Add Quiz</h2>
+    <mat-form-field class="w-full">
+      <mat-label>Score</mat-label>
+      <input matInput placeholder="score" formControlName="score">
+    </mat-form-field>
+    <div class="flex flex-col">
+      <label id="showAnswers">Show Answers</label>
+      <mat-radio-group aria-label="Select an option" formControlName="showAnswers" aria-labelledby="showAnswers">
+        <mat-radio-button value="true" matInput>Yes</mat-radio-button>
+        <mat-radio-button value="false" matInput>No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="flex flex-col">
+      <label id="showFinalResults">Show Final Results</label>
+      <mat-radio-group aria-label="Select an option" formControlName="showFinalResults">
+        <mat-radio-button value="true" matInput>Yes</mat-radio-button>
+        <mat-radio-button value="false" matInput>No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <mat-form-field class="w-full">
+      <mat-label>Chance number</mat-label>
+      <input matInput placeholder="chance number" formControlName="chanceNbr" type="number">
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Duration in minutes</mat-label>
+      <input matInput placeholder="duration in minute" formControlName="durationInMinutes" type="number">
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Duration in minutes</mat-label>
+      <textarea matInput placeholder="remark" formControlName="remark"></textarea>
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Subject</mat-label>
+      <input placeholder="choose subject"
+             aria-label="parent"
+             matInput
+             formControlName="subject_id"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let subject of Subjects" [value]="subject.id">
+          {{subject.title}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-dialog-actions align="center">
+      <button mat-dialog-close class="bg-[#ce8c12] rounded-md text-white font-bold p-2">Close</button>
+      <button class="bg-[#1267CE] rounded-md text-white font-bold p-2 ml-3">Create</button>
+    </mat-dialog-actions>
+  </mat-dialog-content>
+</form>

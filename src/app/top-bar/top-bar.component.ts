@@ -9,6 +9,12 @@ import { DialogComponent as  subjectDialog} from '../material/subject-create-dia
 import { LevelStateService } from 'src/services/level-state-service.service';
 import { AppService } from 'src/services/app-service.service';
 import { SubjectStateService } from 'src/services/subject-state-service.service';
+import { QuizDialogComponent } from '../material/quiz-create-dialog/dialog.component';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Observable, filter } from 'rxjs';
+import { stateInterface } from 'src/ngrx/reducers/quiz.reducer';
+import { Store } from '@ngrx/store';
+import { initDialog } from 'src/ngrx/actions/quiz.action';
 
 @Component({
   selector: 'app-top-bar',
@@ -22,13 +28,37 @@ export class TopBarComponent {
   faFolder = faFolderTree;
   faQuestion = faFileCircleQuestion;
   menuToggle: Boolean = false;
+  showQuizz: Boolean = false;
+  quizBtn: Boolean = false;
 
   constructor(public dialog: MatDialog,
     private levelState: LevelStateService,
     private subjectState: SubjectStateService,
-    private appService: AppService){}
+    private appService: AppService,
+    private route: ActivatedRoute,
+    private router:Router,
+    private store: Store<{quiz: stateInterface}>){}
   toggle(): void{
     this.menuToggle = !this.menuToggle;
+  }
+
+  ngOnInit(): void {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.quizBtn = this.getPageTitle() === 'Quiz Dashboard'
+    });
+  }
+
+  getPageTitle(): string {
+    let currentRoute = this.route;
+
+    while (currentRoute.children.length > 0) {
+      currentRoute = currentRoute.children[0];
+    }
+
+    const pageTitle = currentRoute.snapshot.data['title'];
+    return pageTitle;
   }
 
   openDialog() {
@@ -41,5 +71,10 @@ export class TopBarComponent {
     let dialogRef = this.dialog.open(subjectDialog, {enterAnimationDuration: '400ms', exitAnimationDuration: '400ms', autoFocus: false	});
     this.subjectState.setState(dialogRef);
     dialogRef.afterClosed().subscribe(data => this.appService.subject("create", data.data));
+  }
+
+  openDialogQuiz(){
+    let dialogRef = this.dialog.open(QuizDialogComponent, {enterAnimationDuration: '400ms', exitAnimationDuration: '400ms', autoFocus: false	});
+    this.store.dispatch(initDialog({dialogRef}));
   }
 }

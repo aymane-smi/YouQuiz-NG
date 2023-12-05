@@ -6,6 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatChipsModule } from '@angular/material/chips';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -17,7 +20,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FontAwesomeModule,
     MatButtonModule,
     MatMenuModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule,
+    MatChipsModule,
+    RouterModule
   ],
   exports:[
     MainComponent

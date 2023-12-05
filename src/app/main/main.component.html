@@ -33,13 +33,38 @@
         <img [src]="bannerImg" class="w-[100px] h-[100px]"/>
       </div>
       <div class="bg-white rounded-md w-full h-fit py-3">
-        <p class="font-semibold border-b-2 border-blue-600 p-4 ml-6 pb-2 w-fit mb-1">Quiz</p>
-        <div class="w-full border-t-2 border-gray-200 h-[200px] p-6">
-          <div class="border border-dashed rounded-sm flex justify-center items-center flex-col p-10 bg-gray-50">
-            <p class="text-center text-[15px] text-gray-500">Welcome to Courses! When a course is created, you can create a course session, to assign it to learners and start the course!</p>
-            <a class="rounded-md font-bold create-btn p-2 text-white text-[12px] mt-3">Create Quiz</a>
-          </div>
-        </div>
+        <mat-tab-group animationDuration="1000ms">
+          <!-- add quizz -->
+          <mat-tab>
+            <ng-template mat-tab-label class="font-semibold border-b-2 border-blue-600 p-4 ml-6 pb-2 w-fit mb-3">Add Quiz</ng-template>
+            <div class="w-full border-t-2 border-gray-200 h-[200px] p-6">
+              <div class="border border-dashed rounded-sm flex justify-center items-center flex-col p-10 bg-gray-50">
+                <p class="text-center text-[15px] text-gray-500">Welcome to Quiz! When a quiz is created, you can create a quiz session, to assign it to learners and start the quiz!</p>
+                <a routerLink="/quiz" class="rounded-md font-bold create-btn p-2 text-white text-[12px] mt-3">Create Quiz</a>
+              </div>
+            </div>
+          </mat-tab>
+          <!-- show list of quizzes -->
+          <mat-tab>
+            <ng-template  mat-tab-label class="font-semibold border-b-2 border-blue-600 p-4 ml-6 pb-2 w-fit mb-1">Quizzes</ng-template>
+            <div class="py-6 first-letter:w-full border-t-2 border-gray-200 h-[200px] p-6 flex flex-col gap-3 justify-center items-center">
+              <div *ngFor='let v of [1,2,3]' class="rounded-md border-gray-200 border-2 flex justify-between items-center h-fit gap-5 font-Montserrat">
+                <img src="https://source.boringavatars.com/" class="h-[150px] w-[200px]">
+                <div class="flex flex-col gap-2 mr-2">
+                  <p class="font-bold">title</p>
+                  <mat-chip-listbox>
+                    <mat-chip color="accent" class="text-[10px]">
+                      <b>120</b> question
+                    </mat-chip>
+                    <mat-chip color="primary" class="text-[10px]">
+                      <b>20min</b> duration
+                    </mat-chip>
+                  </mat-chip-listbox>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
       </div>
     </div>
     <!-- right -->

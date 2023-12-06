@@ -1,5 +1,19 @@
 <main class="pt-[100px] flex bg-[url(https://assets-cdn.kahoot.it/builder/v2/assets/teach_stud_default-ef51b1e5.jpg)] h-full bg-cover">
-  <div class="basis-1/6 h-full overflow-y-scroll bg-white shadow-md"></div>
-  <div class="basis h-full w-full"></div>
-  <div class="basis-1/6 h-full overflow-y-scroll bg-white shadow-md"></div>
+  <div class="basis-1/6 h-full overflow-y-scroll bg-white shadow-md flex flex-col justify-start items-center gap-3">
+    <app-question class="w-full p-4 flex justify-center items-center bg-[#EAF4FC] gap-1"></app-question>
+    <button class="create-btn rounded-md p-2">add question</button>
+  </div>
+  <!-- body -->
+  <form class="w-full flex justify-start items-center flex-col py-10 focus:outline-none gap-5">
+      <input type="text" class="w-[80%] h-[60px] text-center rounded-sm inputShadow text-[20px]" placeholder="start typing your question"/>
+      <div class="bg-[#EEE6EB] w-[300px] h-fit rounded-sm flex flex-col justify-center items-center bg-opacity-95">
+        <img src="https://assets-cdn.kahoot.it/builder/v2/assets/media-032392f1.svg" class="h-[100px] w-[170px]"/>
+        <div class="bg-white rounded-md p-4 hover:bg-[#EBEBEB] shadow-md">
+          <fa-icon [icon]="faPlus_" size="xl"/>
+        </div>
+        <p class="font-Montserrat text-[13px] font-semibold w-full text-center py-3">Insert your favourite media here.</p>
+      </div>
+  </form>
+  <div class="basis-1/6 h-full overflow-y-scroll bg-white shadow-md">
+  </div>
 </main>

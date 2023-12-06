@@ -25,7 +25,7 @@ export class AppComponent implements OnInit{
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       this.title = this.getPageTitle() === "Not Found";
-      this.sideBarToggle = !(this.getPageTitle() === "Create Quiz");
+      this.sideBarToggle = !(this.getPageTitle() === "Quiz");
     });
   }
 

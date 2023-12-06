@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-quiz',
@@ -6,4 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./quiz.component.scss']
 })
 export class QuizComponent {
+  faPlus_ = faPlus;
 }

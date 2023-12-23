@@ -1,11 +1,13 @@
-<main class="pt-[100px] flex bg-[url(https://assets-cdn.kahoot.it/builder/v2/assets/teach_stud_default-ef51b1e5.jpg)] h-full bg-cover">
+<main class="font-Montserrat pt-[100px] flex bg-[url(https://assets-cdn.kahoot.it/builder/v2/assets/teach_stud_default-ef51b1e5.jpg)] h-full bg-cover">
+  <!-- left panel -->
   <div class="basis-1/6 h-full overflow-y-scroll bg-white shadow-md flex flex-col justify-start items-center gap-3">
-    <app-question class="w-full p-4 flex justify-center items-center bg-[#EAF4FC] gap-1"></app-question>
-    <button class="create-btn rounded-md p-2">add question</button>
+    <app-question *ngFor="let question of questions;let indexOf=index;" class="w-full p-4 flex justify-center items-center gap-1" [ngClass]="{'bg-[#EAF4FC]': indexOf == selectedId}" (deleteQuestion)="deletOneQuestion()" (selectQuestion)="selectedQuestion(indexOf)" [index]="indexOf"></app-question>
+    <button class="create-btn rounded-md p-2" (click)="addNewQuestion()">add question</button>
   </div>
-  <!-- body -->
-  <form class="w-full flex justify-start items-center flex-col py-10 focus:outline-none gap-5">
-      <input type="text" class="w-[80%] h-[60px] text-center rounded-sm inputShadow text-[20px]" placeholder="start typing your question"/>
+  <form class="flex" [formGroup]="form">
+    <!-- body -->
+  <div class="w-full flex justify-start items-center flex-col py-10 gap-5">
+      <input type="text" class="w-[80%] h-[60px] text-center rounded-sm inputShadow text-[20px] focus:outline-none" placeholder="start typing your question" formControlName="questionText"/>
       <div class="bg-[#EEE6EB] w-[300px] h-fit rounded-sm flex flex-col justify-center items-center bg-opacity-95">
         <img src="https://assets-cdn.kahoot.it/builder/v2/assets/media-032392f1.svg" class="h-[100px] w-[170px]"/>
         <div class="bg-white rounded-md p-4 hover:bg-[#EBEBEB] shadow-md">
@@ -13,7 +15,66 @@
         </div>
         <p class="font-Montserrat text-[13px] font-semibold w-full text-center py-3">Insert your favourite media here.</p>
       </div>
-  </form>
-  <div class="basis-1/6 h-full overflow-y-scroll bg-white shadow-md">
+      <!-- answers -->
+      <div class="w-full flex justify-center items-center gap-4 flex-wrap">
+        <div class="basis-1/2 w-full rounded-md bg-white p-3 max-w-[500px] min-h-[80px] flex justify-start items-center gap-5">
+          <div class="h-[60px] w-[40px] bg-[#E21A3B] flex justify-center items-center rounded-md"></div>
+          <input type="text" placeholder="question 1" class="w-full p-3 focus:outline-none"/>
+          <div class="rounded-[50%] border-[5px] check w-[45px] h-[40px] flex justify-center items-center border-[#59B32C]">
+            <fa-icon [icon]="faCheck" size="lg" class="text-[#59B32C] text-[20px]"/>
+          </div>
+        </div>
+        <div class="basis-1/2 w-full rounded-md bg-white p-3 max-w-[500px] min-h-[80px] flex justify-start items-center gap-5">
+          <div class="h-[60px] w-[40px] bg-[#1267CE] flex justify-center items-center rounded-md"></div>
+          <input type="text" placeholder="question 2" class="w-full p-3 focus:outline-none"/>
+          <div class="rounded-[50%] border-[5px] check w-[45px] h-[40px] flex justify-center items-center border-[#59B32C] shadow-lg">
+            <fa-icon [icon]="faCheck" size="lg" class="text-[#59B32C] text-[20px]"/>
+          </div>
+        </div>
+        <div class="basis-1/2 w-full rounded-md bg-white p-3 max-w-[500px] min-h-[80px] flex justify-start items-center gap-5">
+          <div class="h-[60px] w-[40px] bg-[#D89D02] flex justify-center items-center rounded-md"></div>
+          <input type="text" placeholder="question 3" class="w-full p-3 focus:outline-none"/>
+          <div class="rounded-[50%] border-[5px] check w-[45px] h-[40px] flex justify-center items-center border-[#59B32C] shadow-lg">
+            <fa-icon [icon]="faCheck" size="lg" class="text-[#59B32C] text-[20px]"/>
+          </div>
+        </div>
+        <div class="basis-1/2 w-full rounded-md bg-white p-3 max-w-[500px] min-h-[80px] flex justify-start items-center gap-5">
+          <div class="h-[60px] w-[40px] bg-[#27890D] flex justify-center items-center rounded-md"></div>
+          <input type="text" placeholder="question 3" class="w-full p-3 focus:outline-none"/>
+          <div class="rounded-[50%] border-[5px] check w-[45px] h-[40px] flex justify-center items-center border-[#59B32C] shadow-lg">
+            <fa-icon [icon]="faCheck" size="lg" class="text-[#59B32C] text-[20px]"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- right panel -->
+  <div class="basis-1/5 h-full overflow-y-scroll bg-white shadow-md p-2">
+    <div class="w-full flex flex-col gap-3">
+      <label id="questionType" class="pl-3 font-semibold flex justify-start items-center gap-3">
+        <fa-icon [icon]="faFont" size="lg"/>
+        <span>Question Type</span>
+      </label>
+      <div class="w-full flex focus:outline p-3 rounded-md border border-gray-400">
+        <img src="../../assets/kahoot_phone.png" class="w-[20px] h-[20px]"/>
+        <select for="questionType" name="questionType" class="focus:outline-none w-full" formControlName="type">
+          <option value="SINGLE">Single</option>
+          <option value="MULTIPLE">Multiple</option>
+          <option value="DIRECT">Direct</option>
+        </select>
+      </div>
+    </div>
+    <div class="w-full flex flex-col gap-3 mt-3">
+      <label id="questionTime" class="pl-3 font-semibold flex justify-start items-center gap-3">
+        <fa-icon [icon]="faClock" size="lg"/>
+        <span>Question Time</span>
+      </label>
+      <input class="p-3 rounded-md border border-gray-400" for="questionTime" name="questionTime" placeholder="time in seconds" type="number" formControlName="duration"/>
+    </div>
+    <div class="w-full flex justify-center items-center mt-3 gap-3">
+      <button class="rounded-md bg-[#1466CE] p-2 font-semibold text-white">save</button>
+      <button class="rounded-md bg-[#D01937] p-2 font-semibold text-white">delete</button>
+    </div>
   </div>
+</form>
+
 </main>

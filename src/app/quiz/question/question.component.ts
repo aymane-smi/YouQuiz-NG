@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { faImage, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -9,4 +10,15 @@ import { faImage, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 export class QuestionComponent {
   faTrash = faTrashCan;
   faImage_ = faImage;
+  @Output() deleteQuestion = new EventEmitter<void>();
+  @Input() index: Number = 0;
+  @Output() selectQuestion = new EventEmitter<Number>();
+
+  delete(){
+    this.deleteQuestion.emit();
+  }
+
+  select(){
+    this.selectQuestion.emit(this.index);
+  }
 }

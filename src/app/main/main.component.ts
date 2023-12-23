@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { faCircleExclamation, faGear } from '@fortawesome/free-solid-svg-icons';
 import { MainService } from './main.service';
-import { Level } from 'src/interfaces/Level';
-import { Subject } from 'src/interfaces/Subject';
+import { Level } from 'src/app/models/interfaces/Level';
+import { Subject } from 'src/app/models/interfaces/Subject';
 import { MatButtonModule } from '@angular/material/button';
 import { LevelStateService } from 'src/services/level-state-service.service';
 import { AppService } from 'src/services/app-service.service';

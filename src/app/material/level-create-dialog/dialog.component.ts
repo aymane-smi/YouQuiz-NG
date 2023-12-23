@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {  FormControl, FormGroup } from '@angular/forms';
 import { LevelService } from 'src/services/level.service';
-import {Level} from '../../../interfaces/Level';
+import {Level} from '../../models/interfaces/Level';
 import { LevelStateService } from 'src/services/level-state-service.service';
 
 @Component({

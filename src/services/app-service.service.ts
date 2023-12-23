@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Level } from 'src/interfaces/Level';
-import { Subject as ISubject} from 'src/interfaces/Subject';
+import { Level } from 'src/app/models/interfaces/Level';
+import { Subject as ISubject} from 'src/app/models/interfaces/Subject';
 
 @Injectable({
   providedIn: 'root'

@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap } from 'rxjs';
-import { AddLevelResponse } from 'src/interfaces/AddLevelResponse';
-import { Level } from 'src/interfaces/Level';
-import { LevelResponse } from 'src/interfaces/LevelResponse';
+import { AddLevelResponse } from 'src/app/models/interfaces/AddLevelResponse';
+import { Level } from 'src/app/models/interfaces/Level';
+import { LevelResponse } from 'src/app/models/interfaces/LevelResponse';
 
 @Injectable({
   providedIn: 'root'

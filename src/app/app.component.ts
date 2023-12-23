@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from'@angular/router';
 import { filter } from 'rxjs';
-import { Level } from 'src/interfaces/Level';
+import { Level } from 'src/app/models/interfaces/Level';
 import { AppService } from 'src/services/app-service.service';
 
 @Component({

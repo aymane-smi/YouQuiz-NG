@@ -11,6 +11,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SubjectDialogUpdateComponent } from './subject-update-dialog/subject-dialog-update.component';
 import { QuizDialogComponent } from './quiz-create-dialog/dialog.component';
+import { MediaDialogComponent } from './media-dialog/media-dialog.component';
 
 
 
@@ -19,7 +20,8 @@ import { QuizDialogComponent } from './quiz-create-dialog/dialog.component';
     DialogComponent,
     SubjectDialog,
     SubjectDialogUpdateComponent,
-    QuizDialogComponent
+    QuizDialogComponent,
+    MediaDialogComponent
   ],
   imports: [
     CommonModule,

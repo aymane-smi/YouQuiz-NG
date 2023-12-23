@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { QuestionComponent } from './question/question.component';
 import { QuizComponent } from './quiz.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -10,7 +11,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   declarations: [QuestionComponent, QuizComponent],
   imports: [
     CommonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ReactiveFormsModule
   ]
 })
 export class QuizModule { }

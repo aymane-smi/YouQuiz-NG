@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap } from 'rxjs';
-import { AddLevelResponse } from 'src/interfaces/AddLevelResponse';
-import { AddSubjectResponse } from 'src/interfaces/AddSubjectResponse';
-import { LevelResponse } from 'src/interfaces/LevelResponse';
-import { Subject } from 'src/interfaces/Subject';
-import { SubjectResponse } from 'src/interfaces/SubjectResponse';
+import { AddLevelResponse } from 'src/app/models/interfaces/AddLevelResponse';
+import { AddSubjectResponse } from 'src/app/models/interfaces/AddSubjectResponse';
+import { LevelResponse } from 'src/app/models/interfaces/LevelResponse';
+import { Subject } from 'src/app/models/interfaces/Subject';
+import { SubjectResponse } from 'src/app/models/interfaces/SubjectResponse';
 
 @Injectable({
   providedIn: 'root'

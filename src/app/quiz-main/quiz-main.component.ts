@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Quiz } from 'src/interfaces/Quiz';
+import { Quiz } from 'src/app/models/interfaces/Quiz';
 import { QuizMainService } from './quiz-main.service';
-import { CostumeQuiz } from 'src/interfaces/CostumeQuiz';
+import { CostumeQuiz } from 'src/app/models/interfaces/CostumeQuiz';
 import { stateInterface } from 'src/ngrx/reducers/quiz.reducer';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';

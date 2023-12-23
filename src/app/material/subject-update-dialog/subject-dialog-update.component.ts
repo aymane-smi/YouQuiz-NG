@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import {  FormControl, FormGroup } from '@angular/forms';
-import {Subject} from '../../../interfaces/Subject';
+import {Subject} from '../../models/interfaces/Subject';
 import { SubjectService } from 'src/services/subject.service';
 import { SubjectStateService } from 'src/services/subject-state-service.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';

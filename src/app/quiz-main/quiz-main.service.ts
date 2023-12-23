@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Quiz } from 'src/interfaces/Quiz';
+import { Quiz } from 'src/app/models/interfaces/Quiz';
 
 @Injectable({
   providedIn: 'root'

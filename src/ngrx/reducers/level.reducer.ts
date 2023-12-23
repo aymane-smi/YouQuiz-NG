@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { addLevel, initLevels } from "../actions/level.action";
-import { Level } from "src/interfaces/Level";
+import { Level } from "src/app/models/interfaces/Level";
 
 export const initialState:Level[] = [];
 

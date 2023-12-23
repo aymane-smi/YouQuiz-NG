@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store"
-import { Quiz } from "src/interfaces/Quiz"
+import { Quiz } from "src/app/models/interfaces/Quiz"
 import { createQuiz, initDialog } from "../actions/quiz.action"
 
 export interface stateInterface{

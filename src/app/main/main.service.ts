@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LevelResponse } from 'src/interfaces/LevelResponse';
+import { LevelResponse } from 'src/app/models/interfaces/LevelResponse';
 import { Observable, tap } from 'rxjs';
-import { SubjectResponse } from 'src/interfaces/SubjectResponse';
+import { SubjectResponse } from 'src/app/models/interfaces/SubjectResponse';
 
 @Injectable({
   providedIn: 'root'

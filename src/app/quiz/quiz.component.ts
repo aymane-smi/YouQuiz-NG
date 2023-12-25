@@ -60,6 +60,94 @@ export class QuizComponent {
     this.levelService.getLevels().subscribe(response => {
       this.levels = response.levels;
     });
+    // listening to point changes to calculate correctResponseNbr
+    this.formQuestion.controls['point1'].valueChanges.subscribe(value => {
+      if(value > 0)
+        this.form.controls['correctResponseNbr'].setValue(
+          this.form.controls['correctResponseNbr'].value + 1
+        );
+      else
+        this.form.controls['correctResponseNbr'].setValue(
+          this.form.controls['correctResponseNbr'].value - 1
+        );
+    });
+
+    this.formQuestion.controls['point2'].valueChanges.subscribe(value => {
+      if(value > 0)
+        this.form.controls['correctResponseNbr'].setValue(
+          this.form.controls['correctResponseNbr'].value + 1
+        );
+      else
+        this.form.controls['correctResponseNbr'].setValue(
+          this.form.controls['correctResponseNbr'].value - 1
+        );
+    });
+
+    this.formQuestion.controls['point3'].valueChanges.subscribe(value => {
+      if(value > 0)
+        this.form.controls['correctResponseNbr'].setValue(
+          this.form.controls['correctResponseNbr'].value + 1
+        );
+      else
+        this.form.controls['correctResponseNbr'].setValue(
+          this.form.controls['correctResponseNbr'].value - 1
+        );
+    });
+
+    this.formQuestion.controls['point4'].valueChanges.subscribe(value => {
+      if(value > 0)
+        this.form.controls['correctResponseNbr'].setValue(
+          this.form.controls['correctResponseNbr'].value + 1
+        );
+      else
+        this.form.controls['correctResponseNbr'].setValue(
+          this.form.controls['correctResponseNbr'].value - 1
+        );
+    });
+    // listening to point changes to calculate correctResponseNbr
+    this.formQuestion.controls['response1'].valueChanges.subscribe(value => {
+      if(value != '')
+        this.form.controls['responseNbr'].setValue(
+          this.form.controls['responseNbr'].value + 1
+        );
+      else
+        this.form.controls['responseNbr'].setValue(
+          this.form.controls['responseNbr'].value - 1
+        );
+    });
+
+    this.formQuestion.controls['response2'].valueChanges.subscribe(value => {
+      if(value != '')
+        this.form.controls['responseNbr'].setValue(
+          this.form.controls['responseNbr'].value + 1
+        );
+      else
+        this.form.controls['responseNbr'].setValue(
+          this.form.controls['responseNbr'].value - 1
+        );
+    });
+
+    this.formQuestion.controls['response3'].valueChanges.subscribe(value => {
+      if(value != '')
+        this.form.controls['responseNbr'].setValue(
+          this.form.controls['responseNbr'].value + 1
+        );
+      else
+        this.form.controls['responseNbr'].setValue(
+          this.form.controls['responseNbr'].value - 1
+        );
+    });
+
+    this.formQuestion.controls['response4'].valueChanges.subscribe(value => {
+      if(value != '')
+        this.form.controls['responseNbr'].setValue(
+          this.form.controls['responseNbr'].value + 1
+        );
+      else
+        this.form.controls['responseNbr'].setValue(
+          this.form.controls['responseNbr'].value - 1
+        );
+    });
   }
   addNewQuestion(){
     this.questions.push(1);

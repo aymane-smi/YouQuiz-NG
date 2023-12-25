@@ -31,6 +31,10 @@ export class SubjectService {
     }));
   }
 
+  getSubjects():Observable<SubjectResponse>{
+    return this.http.get<SubjectResponse>(`${this.url}/subject`);
+  }
+
   editSubject(id: number, subject:Subject):Observable<Subject>{
     return this.http.put<Subject>(`${this.url}/subject/${id}`, subject, this.httpOptions).pipe(tap((response : any) =>{
       this.subjects = response.subjects;

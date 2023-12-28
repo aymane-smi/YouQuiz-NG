@@ -1,13 +1,13 @@
 <main class="font-Montserrat pt-[100px] flex bg-[url(https://assets-cdn.kahoot.it/builder/v2/assets/teach_stud_default-ef51b1e5.jpg)] h-full bg-cover">
   <!-- left panel -->
   <div class="basis-1/4 h-full overflow-y-scroll bg-white shadow-md flex flex-col justify-start items-center gap-3">
-    <app-question *ngFor="let question of questions;let indexOf=index;" class="w-full p-4 flex justify-center items-center gap-1" [ngClass]="{'bg-[#EAF4FC]': indexOf == selectedId}" (deleteQuestion)="deletOneQuestion()" (selectQuestion)="selectedQuestion(indexOf)" [index]="indexOf"></app-question>
+    <app-question *ngFor="let question of questions;let indexOf=index;" class="w-full p-4 flex justify-center items-center gap-1" [ngClass]="{'bg-[#EAF4FC]': indexOf == selectedId}" (deleteQuestion)="deletOneQuestion()" (selectQuestion)="selectedQuestion(indexOf)" [index]="indexOf" [questionText]="question.questionText || 'Question'"></app-question>
     <button class="create-btn rounded-md p-2" (click)="addNewQuestion()">add question</button>
   </div>
-  <form class="flex" [formGroup]="form">
+  <form class="flex" [formGroup]="form" (ngSubmit)="onSubmit()">
     <!-- body -->
   <div class="w-full flex justify-start items-center flex-col py-10 gap-5">
-      <input type="text" class="w-[80%] h-[60px] text-center rounded-sm inputShadow text-[20px] focus:outline-none" placeholder="start typing your question" formControlName="questionText"/>
+      <input type="text" class="w-[80%] h-[60px] text-center rounded-sm inputShadow text-[20px] focus:outline-none" placeholder="start typing your question" formControlName="questionText" value="{{questions[selectedId].questionText}}"/>
       <div class="bg-[#EEE6EB] w-[300px] h-fit rounded-sm flex flex-col justify-center items-center bg-opacity-95">
         <img src="https://assets-cdn.kahoot.it/builder/v2/assets/media-032392f1.svg" class="h-[100px] w-[170px]"/>
         <div class="bg-white rounded-md p-4 hover:bg-[#EBEBEB] shadow-md">
@@ -68,9 +68,9 @@
       <div class="w-full flex focus:outline p-3 rounded-md border border-gray-400">
         <img src="../../assets/kahoot_phone.png" class="w-[20px] h-[20px]"/>
         <select for="questionType" name="questionType" class="focus:outline-none w-full" formControlName="type">
-          <option value="SINGLE">Single</option>
-          <option value="MULTIPLE">Multiple</option>
-          <option value="DIRECT">Direct</option>
+          <option value="SINGLE" [attr.selected]="questions[selectedId].questiontype == 0">Single</option>
+          <option value="MULTIPLE" [attr.selected]="questions[selectedId].questiontype == 1">Multiple</option>
+          <option value="DIRECT" [attr.selected]="questions[selectedId].questiontype == 2">Direct</option>
         </select>
       </div>
     </div>
@@ -79,14 +79,14 @@
         <fa-icon [icon]="faClock" size="lg"/>
         <span>Question Time</span>
       </label>
-      <input class="p-3 rounded-md border border-gray-400" for="questionTime" placeholder="time in seconds" type="number" formControlName="duration"/>
+      <input class="p-3 rounded-md border border-gray-400" for="questionTime" placeholder="time in seconds" type="number" formControlName="duration" value="{{questions[selectedId].duration}}"/>
     </div>
     <div class="w-full flex flex-col gap-3 mt-3">
       <label id="totalScore" class="pl-3 font-semibold flex justify-start items-center gap-3">
         <fa-icon [icon]="faStar" size="lg"/>
         <span>Total Score</span>
       </label>
-      <input class="p-3 rounded-md border border-gray-400" for="totalScore" placeholder="time in seconds" type="number" formControlName="totalScore"/>
+      <input class="p-3 rounded-md border border-gray-400" for="totalScore" placeholder="time in seconds" type="number" formControlName="totalScore" value="{{questions[selectedId].totalScore}}"/>
     </div>
     <div class="w-full flex flex-col gap-3 mt-3">
       <label id="subject" class="pl-3 font-semibold flex justify-start items-center gap-3">
@@ -94,7 +94,7 @@
         <span>Subject</span>
       </label>
       <select *ngFor="let subject of subjects" for="subject" class="p-3 rounded-md border border-gray-400 focus:outline-none w-full" formControlName="subject_id">
-        <option value="{{subject.id}}">{{subject.title}}</option>
+        <option value="{{subject.id}}" [attr.selected]="questions[selectedId].subject_id == subject.id">{{subject.title}}</option>
       </select>
     </div>
     <div class="w-full flex flex-col gap-3 mt-3">
@@ -103,12 +103,13 @@
         <span>Level</span>
       </label>
       <select *ngFor="let level of levels" for="level" class="p-3 rounded-md border border-gray-400 focus:outline-none w-full" formControlName="level_id">
-        <option value="{{level.id}}">{{level.description}}</option>
+        <option value="{{level.id}}" [attr.selected]="questions[selectedId].level_id == level.id">{{level.description}}</option>
       </select>
     </div>
     <div class="w-full flex justify-center items-center mt-3 gap-3">
-      <button class="rounded-md bg-[#1466CE] p-2 font-semibold text-white">save</button>
-      <button class="rounded-md bg-[#D01937] p-2 font-semibold text-white">delete</button>
+      <button *ngIf="questions[selectedId].isCreated == false" class="rounded-md bg-[#1466CE] p-2 font-semibold text-white">save</button>
+      <button *ngIf="questions[selectedId].isCreated" class="rounded-md bg-[#f18948] p-2 font-semibold text-white" (click)="onChange()">update</button>
+      <button *ngIf="questions[selectedId].isCreated" class="rounded-md bg-[#D01937] p-2 font-semibold text-white">delete</button>
     </div>
   </div>
 </form>

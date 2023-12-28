@@ -13,6 +13,7 @@ export class QuestionComponent {
   @Output() deleteQuestion = new EventEmitter<void>();
   @Input() index: Number = 0;
   @Output() selectQuestion = new EventEmitter<Number>();
+  @Input() questionText:String = "";
 
   delete(){
     this.deleteQuestion.emit();

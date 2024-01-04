@@ -4,7 +4,7 @@
     <app-question *ngFor="let question of questions;let indexOf=index;" class="w-full p-4 flex justify-center items-center gap-1" [ngClass]="{'bg-[#EAF4FC]': indexOf == selectedId}" (deleteQuestion)="deletOneQuestion()" (selectQuestion)="selectedQuestion(indexOf)" [index]="indexOf" [questionText]="question.questionText || 'Question'"></app-question>
     <button class="create-btn rounded-md p-2" (click)="addNewQuestion()">add question</button>
   </div>
-  <form class="flex" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form class="flex" [formGroup]="form">
     <!-- body -->
   <div class="w-full flex justify-start items-center flex-col py-10 gap-5">
       <input type="text" class="w-[80%] h-[60px] text-center rounded-sm inputShadow text-[20px] focus:outline-none" placeholder="start typing your question" formControlName="questionText" value="{{questions[selectedId].questionText}}"/>
@@ -21,8 +21,8 @@
         <div class="w-full flex justify-center items-center gap-4 flex-wrap">
         <div class="basis-1/2 w-full rounded-md bg-white p-3 max-w-[500px] min-h-[80px] flex justify-start items-center gap-5">
           <div class="h-[60px] w-[40px] bg-[#E21A3B] flex justify-center items-center rounded-md"></div>
-          <input type="number" class="border w-[20%] rounded-md p-2" formControlName="point1"/>
-          <input type="text" placeholder="question 1" class="w-[90%] p-3 focus:outline-none" formControlName="response1"/>
+          <input type="number" class="border w-[20%] rounded-md p-2" formControlName="point1" min="0"/>
+          <input type="text" placeholder="question 1" class="w-[90%] p-3 focus:outline-none" formControlName="response1" min="0"/>
           <div class="rounded-[50%] border-[5px] check w-[45px] h-[40px] flex justify-center items-center border-[#59B32C]">
             <fa-icon [icon]="faCheck" size="lg" class="text-[#59B32C] text-[20px]"/>
           </div>
@@ -30,8 +30,8 @@
         <!-- 2 -->
         <div class="basis-1/2 w-full rounded-md bg-white p-3 max-w-[500px] min-h-[80px] flex justify-start items-center gap-5">
           <div class="h-[60px] w-[40px] bg-[#1267CE] flex justify-center items-center rounded-md"></div>
-          <input type="number" class="border w-[20%] rounded-md p-2" formControlName="point2"/>
-          <input type="text" placeholder="question 2" class="w-[90%] p-3 focus:outline-none" formControlName="response2"/>
+          <input type="number" class="border w-[20%] rounded-md p-2" formControlName="point2" min="0"/>
+          <input type="text" placeholder="question 2" class="w-[90%] p-3 focus:outline-none" formControlName="response2" min="0"/>
           <div class="rounded-[50%] border-[5px] check w-[45px] h-[40px] flex justify-center items-center border-[#59B32C] shadow-lg">
             <fa-icon [icon]="faCheck" size="lg" class="text-[#59B32C] text-[20px]"/>
           </div>
@@ -39,8 +39,8 @@
         <!-- 3 -->
         <div class="basis-1/2 w-full rounded-md bg-white p-3 max-w-[500px] min-h-[80px] flex justify-start items-center gap-5">
           <div class="h-[60px] w-[40px] bg-[#D89D02] flex justify-center items-center rounded-md"></div>
-          <input type="number" class="border w-[20%] rounded-md p-2" formControlName="point3"/>
-          <input type="text" placeholder="question 3" class="w-[90%] p-3 focus:outline-none" formControlName="response3"/>
+          <input type="number" class="border w-[20%] rounded-md p-2" formControlName="point3" min="0"/>
+          <input type="text" placeholder="question 3" class="w-[90%] p-3 focus:outline-none" formControlName="response3" min="0"/>
           <div class="rounded-[50%] border-[5px] check w-[45px] h-[40px] flex justify-center items-center border-[#59B32C] shadow-lg">
             <fa-icon [icon]="faCheck" size="lg" class="text-[#59B32C] text-[20px]"/>
           </div>
@@ -48,8 +48,8 @@
         <!-- 4 -->
         <div class="basis-1/2 w-full rounded-md bg-white p-3 max-w-[500px] min-h-[80px] flex justify-start items-center gap-5">
           <div class="h-[60px] w-[40px] bg-[#27890D] flex justify-center items-center rounded-md"></div>
-          <input type="number" class="border w-[20%] rounded-md p-2" formControlName="point4">
-          <input type="text" placeholder="question 4" class="w-[90%] p-3 focus:outline-none" formControlName="response4"/>
+          <input type="number" class="border w-[20%] rounded-md p-2" formControlName="point4" min="0">
+          <input type="text" placeholder="question 4" class="w-[90%] p-3 focus:outline-none" formControlName="response4" min="0"/>
           <div class="rounded-[50%] border-[5px] check w-[45px] h-[40px] flex justify-center items-center border-[#59B32C] shadow-lg">
             <fa-icon [icon]="faCheck" size="lg" class="text-[#59B32C] text-[20px]"/>
           </div>
@@ -93,8 +93,9 @@
         <fa-icon [icon]="faBookMark" size="lg"/>
         <span>Subject</span>
       </label>
-      <select *ngFor="let subject of subjects" for="subject" class="p-3 rounded-md border border-gray-400 focus:outline-none w-full" formControlName="subject_id">
-        <option value="{{subject.id}}" [attr.selected]="questions[selectedId].subject_id == subject.id">{{subject.title}}</option>
+      <select for="subject" class="p-3 rounded-md border border-gray-400 focus:outline-none w-full" formControlName="subject_id">
+        <option>--select subject--</option>
+        <option  *ngFor="let subject of subjects" value="{{subject.id}}" [attr.selected]="questions[selectedId].subject_id == subject.id">{{subject.title}}</option>
       </select>
     </div>
     <div class="w-full flex flex-col gap-3 mt-3">
@@ -103,12 +104,13 @@
         <span>Level</span>
       </label>
       <select *ngFor="let level of levels" for="level" class="p-3 rounded-md border border-gray-400 focus:outline-none w-full" formControlName="level_id">
+        <option>--select level--</option>
         <option value="{{level.id}}" [attr.selected]="questions[selectedId].level_id == level.id">{{level.description}}</option>
       </select>
     </div>
     <div class="w-full flex justify-center items-center mt-3 gap-3">
-      <button *ngIf="questions[selectedId].isCreated == false" class="rounded-md bg-[#1466CE] p-2 font-semibold text-white">save</button>
-      <button *ngIf="questions[selectedId].isCreated" class="rounded-md bg-[#f18948] p-2 font-semibold text-white" (click)="onChange()">update</button>
+      <button *ngIf="questions[selectedId].isCreated == false" class="rounded-md bg-[#1466CE] p-2 font-semibold text-white" (click)="onSubmit($event)">save</button>
+      <button *ngIf="questions[selectedId].isCreated" class="rounded-md bg-[#f18948] p-2 font-semibold text-white" (click)="onChange($event)">update</button>
       <button *ngIf="questions[selectedId].isCreated" class="rounded-md bg-[#D01937] p-2 font-semibold text-white">delete</button>
     </div>
   </div>

@@ -1,5 +1,10 @@
 export interface Response {
-  response: String,
-  question_id: Number,
-  point:Number
+  responses: {
+    id?:Number,
+    position:Number,
+    response: String,
+    question_id: Number,
+    point:Number
+  }[],
+  message: string,
 }

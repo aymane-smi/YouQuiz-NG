@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Question } from 'src/app/models/interfaces/Question';
 import { QuestionResponse } from 'src/app/models/interfaces/QuestionResponse';
+import { QuizResponse } from 'src/app/models/interfaces/QuizResponse';
 import { Response } from 'src/app/models/interfaces/Response';
 import { TempoQuiz } from 'src/app/models/interfaces/TempoQuiz';
 
@@ -24,8 +26,8 @@ export class QuestionService {
     return this.http.post<TempoQuiz>(`${this.url}/${tempoQuiz.question_id}`, tempoQuiz, this.httpOptions);
   }
 
-  getQuestionResponse(id:Number):Observable<Response[]>{
-    return this.http.get<Response[]>(`${this.url}/${id}/responses`);
+  getQuestionResponse(id:Number):Observable<Response>{
+    return this.http.get<Response>(`${this.url}/${id}/responses`);
   }
 
   updateQuiz(id:Number, question:QuestionResponse):Observable<QuestionResponse>{
@@ -33,6 +35,8 @@ export class QuestionService {
   }
 
   updateQuestionDuration(id:Number, tempo:TempoQuiz):Observable<TempoQuiz>{
-    return this.http.patch<TempoQuiz>(`${this.url}/${id}`, tempo, this.httpOptions);
+    console.log("change duration");
+    return this.http.patch<TempoQuiz>(`${this.url}/${id}/editTime`, tempo, this.httpOptions);
   }
+
 }

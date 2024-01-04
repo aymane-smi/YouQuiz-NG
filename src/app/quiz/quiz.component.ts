@@ -11,6 +11,8 @@ import { QuestionService } from 'src/services/question.service';
 import { QuizService } from 'src/services/quiz.service';
 import { QuestionResponse } from '../models/interfaces/QuestionResponse';
 import { ActivatedRoute } from '@angular/router';
+import { ResponseService } from 'src/services/response.service';
+import { QuizResponse } from '../models/interfaces/QuizResponse';
 
 @Component({
   selector: 'app-quiz',
@@ -55,7 +57,8 @@ export class QuizComponent {
     private levelService:LevelService,
     private questionService:QuestionService,
     private quizService:QuizService,
-    private router: ActivatedRoute){}
+    private router: ActivatedRoute,
+    private responseService: ResponseService){}
 
   ngOnInit(){
     this.id = <Number|null>this.router.snapshot.paramMap.get("id");
@@ -67,9 +70,6 @@ export class QuizComponent {
             ...item,
             isCreated: true
           };
-          this.questionService.getQuestionResponse(item.id).subscribe(response => {
-            item.responses = response;
-          });
           return item;
         })
         this.questions = response;
@@ -89,12 +89,20 @@ export class QuizComponent {
     });
     this.formQuestion = new FormGroup({
       response1: new FormControl<String>(''),
+      position1: new FormControl<Number>(1),
+      id1: new FormControl<Number>(0),
       point1: new FormControl<Number>(0),
       response2: new FormControl<String>(''),
+      position2: new FormControl<Number>(2),
+      id2: new FormControl<Number>(0),
       point2: new FormControl<Number>(0),
       response3: new FormControl<String>(''),
+      position3: new FormControl<Number>(3),
+      id3: new FormControl<Number>(0),
       point3: new FormControl<Number>(0),
       response4: new FormControl<String>(''),
+      position4: new FormControl<Number>(4),
+      id4: new FormControl<Number>(0),
       point4: new FormControl<Number>(0),
     });
     this.subjectservice.getSubjects().subscribe(response => {
@@ -109,7 +117,7 @@ export class QuizComponent {
         this.form.controls['correctResponseNbr'].setValue(
           this.form.controls['correctResponseNbr'].value + 1
         );
-        this.pointskeysLock[0] = true
+        this.pointskeysLock[0] = true;
       }
       else if(value == 0 && this.pointskeysLock[0] == true){
         this.form.controls['correctResponseNbr'].setValue(
@@ -250,22 +258,48 @@ export class QuizComponent {
 
   selectedQuestion(id:number){
     this.selectedId = id;
-    //change forgroup after each selection
-    Object.keys(this.questions[this.selectedId]).map((key:String) => {
-      if(key != "responses" || key != "isCreated")
-        this.form.controls[key].setValue(this.questions[this.selectedId][key]);
+    if(this.questions[this.selectedId].isCreated){
+      //change formgroup after each selection
+    let keysToSkip = ["responses", "isCreated", "id", "subject", "level"];
+    Object.keys(this.questions[this.selectedId]).map((key:string) => {
+      if(!keysToSkip.includes(key)){
+        this.form.controls[key as keyof QuestionResponse].setValue(this.questions[this.selectedId][key as keyof QuestionResponse]);
+      }
+      if(key == "subject")
+        this.form.controls["subject_id"].setValue(this.questions[this.selectedId].subject?.id);
+      if(key == "level")
+        this.form.controls["level_id"].setValue(this.questions[this.selectedId].level?.id);
+        this.questionService.getQuestionResponse(this.questions[this.selectedId].id).subscribe(response => {
+          console.log(response.responses);
+          for(let element of response.responses){
+            let index = element.position;
+            ["position", "id", "point", "response"].forEach((key:string) => {
+              this.formQuestion.controls[key+index].setValue(
+                element[key as keyof QuizResponse]
+              )
+            });
+          }
+        });
     });
+    }
+
   }
 
-  onSubmit(){
+  onSubmit(e:any){
+    e.preventDefault();
     this.questionService.createQuestion({...this.form.getRawValue(), quiz_id: this.id}).subscribe(response => {
-      console.log(response);
       this.questions.push({...this.form.getRawValue(), quiz_id: this.id});
+      this.responseService.handleResponse(this.formQuestion.getRawValue(), this.questions[this.selectedId].id).forEach(element => {
+        Object.keys(element).forEach((key:string) => this.formQuestion.controls[key].setValue(
+          element[key as keyof Response]
+        ));
+      });
     });
   }
 
-  onChange(){
-    this.questionService.updateQuiz(this.questions[this.selectedId].id, this.questions[this.selectedId]).subscribe(response => {
+  onChange(e:any){
+    e.preventDefault();
+    this.questionService.updateQuiz(this.questions[this.selectedId].id, this.form.getRawValue()).subscribe(response => {
       this.questionService.updateQuestionDuration(this.questions[this.selectedId].id, {
         quiz_id: <Number>this.id,
         question_id: this.questions[this.selectedId].id,
@@ -273,12 +307,18 @@ export class QuizComponent {
       }).subscribe(result => {
         response.duration = result.duration;
         response.isCreated = true;
-        this.questions = this.questions.map(item =>{
+        this.questions = [...this.questions.map(item =>{
           if(item.id == response.id)
             return response;
           return item;
-        });
-      });
+        })]
+      })
+    });
+    this.responseService.handleResponse(this.formQuestion, this.questions[this.selectedId].id).forEach(element => {
+      console.log(element);
+      Object.keys(element).forEach((key:string) => this.formQuestion.controls[key].setValue(
+        element[key as keyof Response]
+      ));
     });
   }
 

@@ -378,7 +378,15 @@ export class QuizComponent {
       this.questions = this.questions.filter(question => question.id !== id);
       if(this.questions.length === 0)
         this.addNewQuestion();
-      this.selectedQuestion(index-1);
+      if(index > 0)
+        this.selectedQuestion(index-1);
+      else
+        this.selectedQuestion(0);
+      this.snackBar.open("question deleted", "", {
+        duration: 1000,
+        verticalPosition: "bottom",
+        horizontalPosition: "right"
+      })
     })
   }
 

@@ -18,8 +18,8 @@ export class QuestionService {
   };
   constructor(private http:HttpClient) { }
 
-  createQuestion(question: Question):Observable<Question>{
-    return this.http.post<Question>(`${this.url}`, question, this.httpOptions);
+  createQuestion(question: any):Observable<any>{
+    return this.http.post<any>(`${this.url}`, question, this.httpOptions);
   }
 
   assignToQuiz(tempoQuiz:TempoQuiz):Observable<Object>{
@@ -35,8 +35,11 @@ export class QuestionService {
   }
 
   updateQuestionDuration(id:Number, tempo:TempoQuiz):Observable<TempoQuiz>{
-    console.log("change duration");
     return this.http.patch<TempoQuiz>(`${this.url}/${id}/editTime`, tempo, this.httpOptions);
+  }
+
+  deleteQuestion(id:Number):Observable<Object>{
+    return this.http.delete(`${this.url}/${id}`);
   }
 
 }

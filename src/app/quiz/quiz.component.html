@@ -111,7 +111,7 @@
     <div class="w-full flex justify-center items-center mt-3 gap-3">
       <button *ngIf="questions[selectedId].isCreated == false" class="rounded-md bg-[#1466CE] p-2 font-semibold text-white" (click)="onSubmit($event)">save</button>
       <button *ngIf="questions[selectedId].isCreated" class="rounded-md bg-[#f18948] p-2 font-semibold text-white" (click)="onChange($event)">update</button>
-      <button *ngIf="questions[selectedId].isCreated" class="rounded-md bg-[#D01937] p-2 font-semibold text-white">delete</button>
+      <button *ngIf="questions[selectedId].isCreated" class="rounded-md bg-[#D01937] p-2 font-semibold text-white" (click)="onDelete()">delete</button>
     </div>
   </div>
 </form>

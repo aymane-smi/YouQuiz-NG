@@ -13,6 +13,7 @@ import { QuestionResponse } from '../models/interfaces/QuestionResponse';
 import { ActivatedRoute } from '@angular/router';
 import { ResponseService } from 'src/services/response.service';
 import { QuizResponse } from '../models/interfaces/QuizResponse';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-quiz',
@@ -58,7 +59,8 @@ export class QuizComponent {
     private questionService:QuestionService,
     private quizService:QuizService,
     private router: ActivatedRoute,
-    private responseService: ResponseService){}
+    private responseService: ResponseService,
+    private snackBar: MatSnackBar){}
 
   ngOnInit(){
     this.id = <Number|null>this.router.snapshot.paramMap.get("id");
@@ -73,6 +75,7 @@ export class QuizComponent {
           return item;
         })
         this.questions = response;
+        this.selectedQuestion(0);
       }
 
     });
@@ -174,7 +177,6 @@ export class QuizComponent {
     // listening to point changes to calculate responseNbr
     this.formQuestion.controls['response1'].valueChanges.subscribe(value => {
       if(value != "" && this.inputkeysLock[0] == false){
-        console.log("inside the first input if");
         this.form.controls['responseNbr'].setValue(
           this.form.controls['responseNbr'].value + 1
         );
@@ -248,7 +250,7 @@ export class QuizComponent {
       isCreated: false,
     });
   }
-
+  //delete to be handled later
   deletOneQuestion(){
     if(this.questions.length > 1){
       this.questions.pop();
@@ -269,42 +271,77 @@ export class QuizComponent {
         this.form.controls["subject_id"].setValue(this.questions[this.selectedId].subject?.id);
       if(key == "level")
         this.form.controls["level_id"].setValue(this.questions[this.selectedId].level?.id);
-        this.questionService.getQuestionResponse(this.questions[this.selectedId].id).subscribe(response => {
-          console.log(response.responses);
-          for(let element of response.responses){
-            let index = element.position;
-            ["position", "id", "point", "response"].forEach((key:string) => {
-              this.formQuestion.controls[key+index].setValue(
-                element[key as keyof QuizResponse]
-              )
-            });
-          }
-        });
+        //this.getResponse();
     });
     }
+    this.getResponse();
 
+  }
+
+  getResponse(){
+    console.log("select==>", this.questions[this.selectedId].id);
+    if(this.questions[this.selectedId].id == 0){
+      [1,2,3,4].forEach((index) => {
+        this.formQuestion.controls["id"+index].setValue(
+          0
+        );
+        this.formQuestion.controls["point"+index].setValue(
+          0
+        );
+        this.formQuestion.controls["response"+index].setValue(
+          ""
+        );
+      });
+    }else
+      this.questionService.getQuestionResponse(this.questions[this.selectedId].id).subscribe(response => {
+        for(let element of response.responses){
+          let index = element.position;
+          ["position", "id", "point", "response"].forEach((key:string) => {
+            this.formQuestion.controls[key+index].setValue(
+              element[key as keyof QuizResponse]
+            )
+          });
+        }
+      });
   }
 
   onSubmit(e:any){
     e.preventDefault();
     this.questionService.createQuestion({...this.form.getRawValue(), quiz_id: this.id}).subscribe(response => {
-      this.questions.push({...this.form.getRawValue(), quiz_id: this.id});
-      this.responseService.handleResponse(this.formQuestion.getRawValue(), this.questions[this.selectedId].id).forEach(element => {
-        Object.keys(element).forEach((key:string) => this.formQuestion.controls[key].setValue(
-          element[key as keyof Response]
-        ));
+      console.log("created response:",response.question.id);
+      this.questions.unshift({...this.form.getRawValue(), quiz_id: this.id, id: response.question.id, isCreated: true});
+      this.responseService.handleResponse(this.formQuestion, this.questions[this.selectedId].id).forEach(element => {
+        try{
+          Object.keys(element).forEach((key:string) => this.formQuestion.controls[key].setValue(
+            element[key as keyof QuizResponse]
+          ));
+        }catch(e:any){
+          this.snackBar.open(e.message, "", {
+            verticalPosition: 'bottom',
+            horizontalPosition: "right",
+            panelClass: ['bg-[#E91E62]']
+          })
+        }
       });
+    }, err =>{
+      this.snackBar.open(err.message, "", {
+        verticalPosition: 'bottom',
+        horizontalPosition: "right",
+        panelClass: ['bg-[#E91E62]']
+      })
     });
   }
 
   onChange(e:any){
     e.preventDefault();
+    let key = false;
     this.questionService.updateQuiz(this.questions[this.selectedId].id, this.form.getRawValue()).subscribe(response => {
       this.questionService.updateQuestionDuration(this.questions[this.selectedId].id, {
         quiz_id: <Number>this.id,
         question_id: this.questions[this.selectedId].id,
         duration: this.form.controls["duration"].value
       }).subscribe(result => {
+        key = true;
         response.duration = result.duration;
         response.isCreated = true;
         this.questions = [...this.questions.map(item =>{
@@ -313,13 +350,36 @@ export class QuizComponent {
           return item;
         })]
       })
+    }, err =>{
+      console.log("inside the error in onchange")
+      this.snackBar.open(err.message, "", {
+        verticalPosition: 'bottom',
+        horizontalPosition: "right",
+        panelClass: ['bg-[#E91E62]']
+      })
     });
     this.responseService.handleResponse(this.formQuestion, this.questions[this.selectedId].id).forEach(element => {
-      console.log(element);
       Object.keys(element).forEach((key:string) => this.formQuestion.controls[key].setValue(
-        element[key as keyof Response]
+        element[key as keyof QuizResponse]
       ));
     });
+    if(!key)
+      this.snackBar.open("question updated", "", {
+        verticalPosition: "bottom",
+        horizontalPosition: "right",
+        duration: 1000
+      });
+  }
+
+  onDelete(){
+    let id = this.questions[this.selectedId].id;
+    this.questionService.deleteQuestion(id).subscribe(response => {
+      let index = this.questions.findIndex(question => question.id === id);
+      this.questions = this.questions.filter(question => question.id !== id);
+      if(this.questions.length === 0)
+        this.addNewQuestion();
+      this.selectedQuestion(index-1);
+    })
   }
 
 }

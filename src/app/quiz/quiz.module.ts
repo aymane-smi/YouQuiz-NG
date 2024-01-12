@@ -4,6 +4,7 @@ import { QuestionComponent } from './question/question.component';
 import { QuizComponent } from './quiz.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -12,7 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FontAwesomeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule
   ]
 })
 export class QuizModule { }

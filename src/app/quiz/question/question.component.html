@@ -3,8 +3,8 @@
     <fa-icon [icon]="faTrash" size="sm" class="text-[#B2B2B2]"/>
   </div>
   <div class="text-[#B2B2B2] p-2 w-[150px] h-[93px] rounded-md border-4 border-[#1267CE] flex flex-col justify-start items-center gap-[1px] bg-white font-Montserrat max-w-[100%]">
-    <p class="font-light text-[13px]" *ngIf="questionText.length > 10;">{{questionText.substring(0, 10)}}...</p>
-    <p class="font-light text-[13px]" *ngIf="questionText.length < 10;">{{questionText}}</p>
+    <p class="font-light text-[13px]" *ngIf="questionText.length > 10">{{questionText.substring(0, 10)}}...</p>
+    <p class="font-light text-[13px]" *ngIf="questionText.length <= 10">{{questionText}}</p>
     <div class="w-[39px] h-[28px] border border-dashed flex justify-center items-center">
       <fa-icon [icon]="faImage_" size="sm"/>
     </div>

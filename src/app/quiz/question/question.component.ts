@@ -14,6 +14,7 @@ export class QuestionComponent {
   @Input() index: Number = 0;
   @Output() selectQuestion = new EventEmitter<Number>();
   @Input() questionText:String = "";
+  //@Input() Responses!:FormGroup;
 
   delete(){
     this.deleteQuestion.emit();

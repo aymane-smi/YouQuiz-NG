@@ -1,0 +1,33 @@
+<mat-dialog-content>
+<form class="flex flex-col h-fit justify-center items-center gap-5 w-fit " [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <h2 class="font-Montserrat font-bold text-[30px] w-[200px] inline-block mt-5">Assign Students to quiz</h2>
+    <!-- ids of students -->
+    <mat-form-field>
+      <mat-label>Students</mat-label>
+      <mat-select formControlName="ids" multiple>
+          <mat-option *ngFor="let student of students;" value="{{student.id}}">
+            {{student.firstName}} {{student.lastName}}
+          </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Choose start date</mat-label>
+      <input matInput [matDatepicker]="picker1" formControlName="startDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Choose end date</mat-label>
+      <input matInput [matDatepicker]="picker2" formControlName="startDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+      <mat-dialog-actions align="center">
+        <button mat-dialog-close class="bg-[#ce8c12] rounded-md text-white font-bold p-2">Close</button>
+        <button class="bg-[#1267CE] rounded-md text-white font-bold p-2 ml-3">Assign</button>
+      </mat-dialog-actions>
+  </form>
+</mat-dialog-content>

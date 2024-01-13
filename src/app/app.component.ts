@@ -12,13 +12,9 @@ import { AppService } from 'src/services/app-service.service';
 export class AppComponent implements OnInit{
   title:boolean = false;
   sideBarToggle: boolean = true;
-  //level:Level | null = null;
   constructor(private router:Router,
     private route: ActivatedRoute,
     private appService: AppService){
-      // this.appService.level$.subscribe(level_ => {
-      //   this.level = level_;
-      // })
     }
   ngOnInit(): void {
     this.router.events.pipe(

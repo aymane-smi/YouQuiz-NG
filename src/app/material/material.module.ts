@@ -12,6 +12,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SubjectDialogUpdateComponent } from './subject-update-dialog/subject-dialog-update.component';
 import { QuizDialogComponent } from './quiz-create-dialog/dialog.component';
 import { MediaDialogComponent } from './media-dialog/media-dialog.component';
+import { AssignDialogComponent } from './assign-dialog/assign-dialog.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatSelectModule} from "@angular/material/select";
 
 
 
@@ -21,7 +25,8 @@ import { MediaDialogComponent } from './media-dialog/media-dialog.component';
     SubjectDialog,
     SubjectDialogUpdateComponent,
     QuizDialogComponent,
-    MediaDialogComponent
+    MediaDialogComponent,
+    AssignDialogComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +36,10 @@ import { MediaDialogComponent } from './media-dialog/media-dialog.component';
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule { }

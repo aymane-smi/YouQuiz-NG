@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { faCircleArrowUp, faFolderTree, faFileCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import { faCircleArrowUp, faFolderTree, faFileCircleQuestion, faPersonCirclePlus, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
@@ -15,6 +15,7 @@ import { Observable, filter } from 'rxjs';
 import { stateInterface } from 'src/ngrx/reducers/quiz.reducer';
 import { Store } from '@ngrx/store';
 import { initDialog } from 'src/ngrx/actions/quiz.action';
+import { AssignDialogComponent } from '../material/assign-dialog/assign-dialog.component';
 
 @Component({
   selector: 'app-top-bar',
@@ -27,9 +28,11 @@ export class TopBarComponent {
   faUp = faCircleArrowUp;
   faFolder = faFolderTree;
   faQuestion = faFileCircleQuestion;
+  faPerson = faPersonCirclePlus;
+  faCircle = faCircleInfo;
   menuToggle: Boolean = false;
   showQuizz: Boolean = false;
-  quizBtn: Boolean = false;
+  quizBtn: Number = 1;
 
   constructor(public dialog: MatDialog,
     private levelState: LevelStateService,
@@ -46,7 +49,14 @@ export class TopBarComponent {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
-      this.quizBtn = this.getPageTitle() === 'Quiz Dashboard'
+      if(this.getPageTitle() === 'Quiz Dashboard')
+        this.quizBtn = 2;
+      else if(this.getPageTitle() === 'Quiz')
+        this.quizBtn = 3;
+      else
+        this.quizBtn = 1;
+      console.log(this.quizBtn, this.getPageTitle());
+
     });
   }
 
@@ -77,4 +87,8 @@ export class TopBarComponent {
     let dialogRef = this.dialog.open(QuizDialogComponent, {enterAnimationDuration: '400ms', exitAnimationDuration: '400ms', autoFocus: false	});
     this.store.dispatch(initDialog({dialogRef}));
   }
+  openAssignDialog(){
+    let dialogRef = this.dialog.open(AssignDialogComponent, {enterAnimationDuration: '400ms', exitAnimationDuration: '400ms', autoFocus: false	});
+  }
+  openInfoSheet(){}
 }
